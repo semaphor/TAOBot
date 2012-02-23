@@ -7,16 +7,18 @@
 
 
 // Which MediaWiki instance to connect to:
-$instance = array(
+$wiki = array(
     "domain" => "en.wikipedia.org",
-    "https" => true,
+    "api_path" => "/wiki",
+    "https" => true,                   // so far not used
     "api" => "/w/api.php"
     );
 
 // User of the above instance:
 $user = array(
     "login" => "MyWikiUser",
-    "password" => "12345"
+    "password" => "12345",
+    "agent" => "MyBot"
     );
 
 // Info about the project to work for:

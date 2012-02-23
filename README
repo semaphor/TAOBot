@@ -3,8 +3,14 @@ TAOBot
 A bot supporting the TAO/Wikiversity project.
 
 
-Information about TAO/Wikiversity: 
+Information about TAO/Wikiversity:
 https://en.wikiversity.org/wiki/TAO
 
 Information and documentation of the bot:
 https://en.wikiversity.org/wiki/User:TAOBot
+
+
+
+Using (and therefore with thanks to the author):
+
+* MediaWikiBot PHP Class (https://github.com/kalebheitzman/mediawikibot)

@@ -15,7 +15,7 @@ $instance = array(
 
 // User of the above instance:
 $user = array(
-    "name" => "MyWikiUser",
+    "login" => "MyWikiUser",
     "password" => "12345"
     );
 

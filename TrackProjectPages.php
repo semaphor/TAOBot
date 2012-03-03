@@ -29,12 +29,12 @@ require_once('./lib/mediawikibot.class.php');
 
 // Configure and create instance, then login
 
-define('DOMAIN', 'http://'.$wiki["domain"]);
-define('WIKI', $wiki["api_path"]);
-define('USERNAME', $user["login"]);
-define('PASSWORD', $user["password"]);
+define('DOMAIN', 'http://'.$wiki['domain']);
+define('WIKI', $wiki['api_path']);
+define('USERNAME', $user['login']);
+define('PASSWORD', $user['password']);
 define('COOKIES', 'cookies.tmp');
-define('USERAGENT', $user["agent"]);
+define('USERAGENT', $user['agent']);
 define('FORMAT', 'php');
 
 $b = new MediaWikiBot();
@@ -50,11 +50,11 @@ $b->login();
  *  $bot->parse($params);
 */
 
-// $url = "http://en.wikiversity.org/w/api.php?action=query&list=alllinks&alunique=&alprefix=TAO&allimit=200&format=php";
+// A la: http://en.wikiversity.org/w/api.php?action=query&list=alllinks&alunique=&alprefix=TAO&allimit=200&format=php;
 
 $params = array(    'list' => 'alllinks',
                     'alunique',
-                    'alprefix' => $project["main_cat"],
+                    'alprefix' => $project['main_cat'],
                     'allimit' => 200);
 
 $sites_arr = $b->query($params);
@@ -66,13 +66,13 @@ $sites = array();
 foreach ($sites_arr as $querry) {
     foreach ($querry as $alllinks){
         foreach ($alllinks as $var){
-            array_push($sites,$var["title"]);
+            array_push($sites,$var['title']);
         }
     }
 }
 
-echo "\nquery done:\n";
-var_dump($sites);
+echo "\n  page query done.\n";
+var_dump($sites_arr);
 
 
 // Logout

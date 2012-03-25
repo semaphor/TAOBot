@@ -41,6 +41,7 @@ $b = new MediaWikiBot();
 
 $b->login();
 
+$params = array();
 
 // Do stuff
 
@@ -50,33 +51,68 @@ $b->login();
  *  $bot->parse($params);
 */
 
-// A la: http://en.wikiversity.org/w/api.php?action=query&list=alllinks&alunique=&alprefix=TAO&allimit=200&format=php;
 
-$params = array(    'list' => 'alllinks',
-                    'alunique',
-                    'alprefix' => $project['main_cat'],
-                    'allimit' => 200);
+// Get token for watchlist editing (watchtoken)
 
+unset($params);
+$params = array(    'intoken' => 'watch',
+                    'titles' => '6d94c2622744e7aaf1ded275195510f4',
+                    'prop' => 'info');
+$watchtoken = $b->query($params);
+$watchtoken = $watchtoken['query']['pages'][-1]['watchtoken'];
+
+
+// Get pages with prefix from config file and put them on our watchlist, à la: http://en.wikiversity.org/w/api.php?action=query&list=alllinks&alunique=&alprefix=TAO&allimit=200&format=php;
+
+unset($params);
+$params = array(    'generator' => 'allpages',
+                    //'alunique',
+                    //'apnamespace',
+                    'gapprefix' => $project['main_cat'],
+                    'gaplimit' => 200,
+                    'prop' => 'info');
 $sites_arr = $b->query($params);
 
+echo "\n  page query done.\n";
 
-$sites = array();
-//$unsTaoPrefix = unserialize($string);
-//var_dump($unsTaoPrefix);
-foreach ($sites_arr as $querry) {
-    foreach ($querry as $alllinks){
-        foreach ($alllinks as $var){
-            array_push($sites,$var['title']);
-        }
-    }
+unset($params);
+$params = array( 'title' => 'None',
+                 'token' => urlencode($watchtoken));
+foreach ($sites_arr['query']['pages'] as $var){
+    $params['title'] = $var['title'];
+    var_dump($b->watch($params));
 }
 
-echo "\n  page query done.\n";
-var_dump($sites_arr);
+echo "\n  put pages into watchlist.\n";
 
 
 // Logout
 
 $b->logout();
+
+
+
+/****** Copypasta
+
+
+//var_dump($sites_arr);
+//var_dump($sites);
+
+
+$params = array(    'generator' => 'allpages',
+                    //'alunique',
+                    //'apnamespace',
+                    'gapprefix' => $project['main_cat'],
+                    'gaplimit' => 200,
+                    'prop' => 'info');
+
+$params = array( 'list' => 'alllinks',
+                 'alunique',
+                 'alprefix' => $project['main_cat'],
+                 'allimit' => 200);
+
+
+******* End of yammy copypasta!
+*/
 
 ?>
